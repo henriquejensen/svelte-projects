@@ -1,4 +1,5 @@
 <script>
+	import { page } from '$app/stores';
 	import '../app.css';
 
 	const links = [
@@ -17,14 +18,18 @@
 	];
 </script>
 
-<section class="m-8">
+<section class="px-8 pt-8 max-w-2xl m-auto">
 	<h1 class="font-bold text-4xl text-center">#todo</h1>
 	<div>
 		<nav class="py-6 border-b-2 border-gray-400 border-solid">
 			<ul class="flex gap-3 justify-between">
 				{#each links as link}
 					<li class="focus:border-solid focus:border-2">
-						<a href={link.href}>{link.name}</a>
+						<a
+							href={link.href}
+							class={`${$page.url.pathname === link.href ? 'text-red-400 font-bold' : 'text-gray'}`}
+							>{link.name}</a
+						>
 					</li>
 				{/each}
 			</ul>
