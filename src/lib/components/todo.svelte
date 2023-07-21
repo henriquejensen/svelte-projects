@@ -30,6 +30,6 @@
 		on:click={selectById}
 		class="w-8 text-end hover:border-red-500 hover:border-dashed hover:border-2"
 	>
-		<img src={trash} class="w-full" alt="trash" />
+		<img src={trash} width={100} height={100} class="w-full" alt="trash" />
 	</button>
 </section>

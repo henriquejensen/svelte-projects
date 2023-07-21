@@ -20,6 +20,15 @@ function createTodo() {
     get,
     data,
     loading,
+		addNewTodo: (newTodo: string) => {
+			const newTodoItem = {
+				id: Math.random(),
+				title: newTodo,
+				completed: false,
+			};
+			data.update((todos) => [newTodoItem, ...todos]);
+			original = [newTodoItem, ...original];
+		},
     reset: () => data.set(original),
 		getCompled: () => data.set(original.filter((x) => x.completed)),
 		filterCompleted: () => data.set(original.filter((x) => !x.completed)),

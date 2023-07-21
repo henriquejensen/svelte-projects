@@ -1,27 +1,19 @@
 <script>
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	import '../app.css';
 	import { todo } from '../stores';
+	import '../app.css';
+	import { links } from '$lib/contants';
 
-	const { get } = todo;
+	const { get, addNewTodo } = todo;
+	let newTodo = '';
 
 	onMount(async () => await get());
 
-	const links = [
-		{
-			name: 'All',
-			href: '/'
-		},
-		{
-			name: 'Active',
-			href: '/active'
-		},
-		{
-			name: 'Completed',
-			href: '/completed'
-		}
-	];
+	function handleAddNewTodo() {
+		addNewTodo(newTodo);
+		newTodo = '';
+	}
 </script>
 
 <section class="px-8 pt-8 max-w-2xl m-auto">
@@ -40,6 +32,17 @@
 				{/each}
 			</ul>
 		</nav>
+
+		<form class="flex gap-3 mt-4" on:submit|preventDefault={handleAddNewTodo}>
+			<input
+				type="text"
+				placeholder="Add new todo"
+				class="w-full border-2 border-solid border-gray-400 rounded-lg p-2"
+				bind:value={newTodo}
+			/>
+			<button class="bg-blue-400 text-white rounded-lg px-4 py-2">Add</button>
+		</form>
+
 		<slot />
 	</div>
 </section>
