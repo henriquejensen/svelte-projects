@@ -2,17 +2,11 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import '../app.css';
-	import { todos } from '../stores';
-	import { fetchTodos } from '$lib/services';
+	import { todo } from '../stores';
 
-	onMount(async () => {
-		const data = await fetchTodos();
-		todos.set({
-			data,
-			loading: false,
-			original: data
-		});
-	});
+	const { get } = todo;
+
+	onMount(async () => await get());
 
 	const links = [
 		{

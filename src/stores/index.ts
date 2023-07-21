@@ -1,13 +1,29 @@
 import { writable } from 'svelte/store';
+import { fetchTodos } from '../lib/services';
 
-type TodoStore = {
-  data: Todo[];
-  loading: boolean;
-  original: Todo[];
-};
+function createTodo() {
+  const loading = writable(false)
+	let original = []
+	const data = writable<Todo[]>([])
 
-export const todos = writable<TodoStore>({
-  data: [],
-  loading: false,
-  original: [],
-});
+  async function get() {
+		try {
+      const response = await fetchTodos();
+      data.set(response)
+      original = response
+		} catch(e) {
+			console.error(e)
+		}
+	}
+
+	return {
+    get,
+    data,
+    loading,
+    reset: () => data.set(original),
+		getCompled: () => data.set(original.filter((x) => x.completed)),
+		filterCompleted: () => data.set(original.filter((x) => !x.completed)),
+	};
+}
+
+export const todo = createTodo()

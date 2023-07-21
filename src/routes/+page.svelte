@@ -1,9 +1,9 @@
 <script lang="ts">
 	import List from '$lib/components/list.svelte';
 	import { onMount } from 'svelte';
-	import { todos } from '../stores';
+	import { todo } from '../stores';
 
-	onMount(async () => todos.update((t) => ({ ...t, data: t.original })));
+	onMount(todo.reset);
 </script>
 
 <List />
