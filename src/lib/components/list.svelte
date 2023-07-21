@@ -1,12 +1,15 @@
 <script lang="ts">
 	import type { Todo } from '$lib/models/types/todo';
+	import { todos } from '../../stores';
 	import TodoComponent from './todo.svelte';
 
-	export let todos: Todo[] = [];
+	let allTodos: Todo[] = [];
+
+	todos.subscribe((value) => (allTodos = value.data));
 </script>
 
 <ul>
-	{#each todos as todo}
+	{#each allTodos as todo}
 		<TodoComponent {todo} on:select />
 	{/each}
 </ul>

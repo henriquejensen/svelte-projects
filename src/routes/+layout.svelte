@@ -1,6 +1,18 @@
 <script>
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
 	import '../app.css';
+	import { todos } from '../stores';
+	import { fetchTodos } from '$lib/services';
+
+	onMount(async () => {
+		const data = await fetchTodos();
+		todos.set({
+			data,
+			loading: false,
+			original: data
+		});
+	});
 
 	const links = [
 		{
